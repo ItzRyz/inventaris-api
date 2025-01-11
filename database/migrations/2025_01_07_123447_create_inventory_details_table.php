@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('statusid')->constrained('m_status')->onDelete('cascade');
             $table->string('remark');
             $table->string('pjid')->constrained('m_pj')->onDelete('cascade');
+            $table->integer('qty');
             $table->timestamps();
         });
     }

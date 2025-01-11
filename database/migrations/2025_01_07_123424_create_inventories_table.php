@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->string('transcode')->unique();
             $table->date('transdate');
             $table->string('remark');
-            $table->integer('qty');
             $table->string('categoryid')->constrained('m_category')->onDelete('cascade');
+            $table->string('createdby')->constrained('m_user')->onDelete('cascade');
             $table->timestamps();
         });
     }
