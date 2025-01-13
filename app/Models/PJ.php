@@ -9,6 +9,7 @@ class PJ extends Model
 {
     /** @use HasFactory<\Database\Factories\PJFactory> */
     use HasFactory;
+    protected $table = "m_pj";
     protected $fillable = ['kode', 'nama', 'lokasi'];
 
 }
