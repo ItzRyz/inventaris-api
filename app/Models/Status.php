@@ -9,5 +9,11 @@ class Status extends Model
 {
     /** @use HasFactory<\Database\Factories\StatusFactory> */
     use HasFactory;
-    protected $fillable = ['nama'];
+    protected $table = "m_status";
+    protected $fillable = ['nama','categoryid'];
+ 
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categoryid');
+    }
 }
