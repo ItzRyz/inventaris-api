@@ -23,8 +23,8 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'user'
-    // 'middleware'=> 'auth:sanctum',
+    'prefix' => 'user',
+    'middleware'=> 'auth:sanctum',
 ], function () {
     Route::get('/', [UserController::class, 'index']);
     Route::get('/{id}', [UserController::class, 'show']);
@@ -34,8 +34,8 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'pj'
-    // 'middleware'=> 'auth:sanctum',
+    'prefix' => 'pj',
+    'middleware'=> 'auth:sanctum',
 ], function () {
     Route::get('/', [PJController::class, 'index']);
     Route::get('/{id}', [PJController::class, 'show']);
@@ -45,8 +45,8 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'category'
-    // 'middleware'=> 'auth:sanctum',
+    'prefix' => 'category',
+    'middleware'=> 'auth:sanctum',
 ], function () {
     Route::get('/', [CategoryController::class, 'index']);
     Route::get('/{id}', [CategoryController::class, 'show']);
@@ -56,8 +56,8 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'status'
-    // 'middleware'=> 'auth:sanctum',
+    'prefix' => 'status',
+    'middleware'=> 'auth:sanctum',
 ], function () {
     Route::get('/', [StatusController::class, 'index']);
     Route::get('/{id}', [StatusController::class, 'show']);
@@ -67,8 +67,8 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'product'
-    // 'middleware'=> 'auth:sanctum',
+    'prefix' => 'product',
+    'middleware'=> 'auth:sanctum',
 ], function () {
     Route::get('/', [ProductController::class, 'index']);
     Route::get('/{id}', [ProductController::class, 'show']);
@@ -78,8 +78,8 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'inv'
-    // 'middleware'=> 'auth:sanctum',
+    'prefix' => 'inv',
+    'middleware'=> 'auth:sanctum',
 ], function () {
     Route::get('/', [InventoryController::class, 'index']);
     Route::get('/{id}', [InventoryController::class, 'show']);
@@ -89,8 +89,8 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'invdt'
-    // 'middleware'=> 'auth:sanctum',
+    'prefix' => 'invdt',
+    'middleware'=> 'auth:sanctum',
 ], function () {
     Route::get('/{hdid}', [InventoryDetailController::class, 'index']);
     Route::get('/{id}', [InventoryDetailController::class, 'show']);
