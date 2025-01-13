@@ -9,6 +9,7 @@ class InventoryDetail extends Model
 {
     /** @use HasFactory<\Database\Factories\InventoryDetailFactory> */
     use HasFactory;
+    protected $table = "t_inv_dt";
 
     protected $fillable = ['headerid', 'productid', 'statusid', 'remark', 'pjid'];
 
@@ -24,7 +25,7 @@ class InventoryDetail extends Model
     {
         return $this->belongsTo(Inventory::class, 'statusid');
     }
-    public function penanggungjawab()
+    public function pj()
     {
         return $this->belongsTo(PJ::class, 'pjid');
     }
