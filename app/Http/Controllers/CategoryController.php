@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -13,54 +13,73 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreCategoryRequest $request)
-    {
-        //
+        $categories = Category::all();
+        return response()->json($categories, 200);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return response()->json($category, 200);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Store a newly created resource in storage.
      */
-    public function edit(Category $category)
+    public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required|string|max:255',
+            'kode' => 'required|unique:m_category,kode',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $category = Category::create($request->all());
+        return response()->json($category, 201);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'kode' => 'required|unique:m_category,kode,' . $id,
+            'nama' => 'required|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
+
+        return response()->json($category, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return response()->json([], 204);
     }
 }
