@@ -9,6 +9,7 @@ class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
+    protected $table = "m_product";
     protected $fillable = ['nama', 'categoryid', 'deskripsi'];
 
     public function category()
