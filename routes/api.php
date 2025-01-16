@@ -94,7 +94,8 @@ Route::group([
 ], function () {
     Route::get('/{hdid}', [InventoryDetailController::class, 'index']);
     Route::get('/{id}', [InventoryDetailController::class, 'show']);
-    Route::post('/{hdid}', [InventoryDetailController::class, 'store']);
+    Route::post('/', [InventoryDetailController::class, 'store']);
     Route::put('/{id}', [InventoryDetailController::class, 'update']);
     Route::delete('/{id}', [InventoryDetailController::class, 'destroy']);
 });
+

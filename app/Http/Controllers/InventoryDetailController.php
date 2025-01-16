@@ -11,9 +11,9 @@ class InventoryDetailController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($hdid)
     {
-        $invdts = InventoryDetail::with(['inventory', 'product', 'status', 'pj'])->get();
+        $invdts = InventoryDetail::with(['inventory', 'product', 'status', 'pj'])->where('headerid', '=', $hdid)->get();
         return response()->json($invdts, 200);
     }
     /**
