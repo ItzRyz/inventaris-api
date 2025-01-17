@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\InventoryDetailController;
 use App\Http\Controllers\PJController;
@@ -99,3 +100,10 @@ Route::group([
     Route::delete('/{id}', [InventoryDetailController::class, 'destroy']);
 });
 
+Route::group([
+    'prefix' => 'dashboard',
+    'middleware'=> 'auth:sanctum',
+], function () {
+    Route::post('/piechart', [DashboardController::class, 'pieData']);
+    Route::post('/penempatan', [DashboardController::class, 'countPenempatan']);
+});
