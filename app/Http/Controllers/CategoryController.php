@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -78,6 +80,12 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        if (Status::where('categoryid', $id)->exists() || Product::where('categoryid', $id)->exists()) {
+            return response()->json([
+                'message' => 'Category cannot be deleted as it is still associated with other data.'
+            ], 400);
+        }
+
         $category = Category::findOrFail($id);
         $category->delete();
         return response()->json([], 204);
