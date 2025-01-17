@@ -104,6 +104,6 @@ Route::group([
     'prefix' => 'dashboard',
     'middleware'=> 'auth:sanctum',
 ], function () {
-    Route::post('/piechart', [DashboardController::class, 'pieData']);
-    Route::post('/penempatan', [DashboardController::class, 'countPenempatan']);
+    Route::get('/piechart', [DashboardController::class, 'pieData']);
+    Route::get('/penempatan', [DashboardController::class, 'countPenempatan']);
 });
