@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('m_status', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('categoryid')->constrained('m_category')->onDelete('cascade');
+            // $table->string('categoryid')->constrained('m_category')->onDelete('cascade');
             $table->timestamps();
         });
     }

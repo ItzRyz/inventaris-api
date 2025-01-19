@@ -13,7 +13,7 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $status = Status::with(['category'])->get();
+        $status = Status::get();
         return response()->json($status,200); 
     }
     /**
@@ -21,7 +21,7 @@ class StatusController extends Controller
      */
     public function show($id)
     {
-        $status = Status::with(['category'])->findOrFail($id);
+        $status = Status::findOrFail($id);
         return response()->json($status, 200);    }
  
     /**
@@ -31,7 +31,7 @@ class StatusController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
-            'categoryid' => 'required|exists:m_category,id'
+            // 'categoryid' => 'required|exists:m_category,id'
         ]);
 
         if ($validator->fails()) {
@@ -53,7 +53,7 @@ class StatusController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama' => 'required|string|max:255',
-            'categoryid' => 'required|exists:m_category,id'
+            // 'categoryid' => 'required|exists:m_category,id'
         ]);
 
         if ($validator->fails()) {

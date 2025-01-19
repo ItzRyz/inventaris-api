@@ -80,7 +80,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        if (Status::where('categoryid', $id)->exists() || Product::where('categoryid', $id)->exists()) {
+        if (Product::where('categoryid', $id)->exists()) {
             return response()->json([
                 'message' => 'Category cannot be deleted as it is still associated with other data.'
             ], 400);

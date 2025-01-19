@@ -13,7 +13,7 @@ class InventoryDetailController extends Controller
      */
     public function index($hdid)
     {
-        $invdts = InventoryDetail::with(['inventory', 'product', 'status', 'pj'])->where('headerid', '=', $hdid)->get();
+        $invdts = InventoryDetail::with(['inventory', 'product'])->where('headerid', '=', $hdid)->get();
         return response()->json($invdts, 200);
     }
     /**
@@ -34,7 +34,7 @@ class InventoryDetailController extends Controller
             'headerid' => 'required|exists:t_inv,id',
             'productid' => 'required|exists:m_product,id',
             'statusid' => 'required|exists:m_status,id',
-            'pjid' => 'required|exists:m_pj,id',
+            'pjid' => 'nullable|exclude_if:pjid,0|exists:m_pj,id',
             'remark' => 'required|string|max:255',
             'qty' => 'required|numeric',
         ]);
@@ -60,7 +60,7 @@ class InventoryDetailController extends Controller
             'headerid' => 'required|exists:t_inv,id',
             'productid' => 'required|exists:m_product,id',
             'statusid' => 'required|exists:m_status,id',
-            'pjid' => 'required|exists:m_pj,id',
+            'pjid' => 'nullable|exclude_if:pjid,0|exists:m_pj,id',
             'remark' => 'required|string|max:255',
             'qty' => 'required|numeric',
         ]);

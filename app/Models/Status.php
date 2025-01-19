@@ -10,10 +10,10 @@ class Status extends Model
     /** @use HasFactory<\Database\Factories\StatusFactory> */
     use HasFactory;
     protected $table = "m_status";
-    protected $fillable = ['nama','categoryid'];
+    protected $fillable = ['nama'];
  
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'categoryid');
-    }
+    // public function category()
+    // {
+    //     return $this->belongsTo(Category::class, 'categoryid');
+    // }
 }

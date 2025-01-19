@@ -11,7 +11,7 @@ class InventoryDetail extends Model
     use HasFactory;
     protected $table = "t_inv_dt";
 
-    protected $fillable = ['headerid', 'productid', 'statusid', 'remark', 'pjid'];
+    protected $fillable = ['headerid', 'productid', 'statusid', 'remark', 'pjid', 'qty'];
 
     public function inventory()
     {
