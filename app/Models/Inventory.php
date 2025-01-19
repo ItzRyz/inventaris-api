@@ -21,4 +21,22 @@ class Inventory extends Model
     {
         return $this->belongsTo(User::class, 'createdby');
     }
+
+    public static function getLastCode($year, $month, $day)
+    {
+        $datePrefix = "{$year}/{$month}/{$day}";
+        $lastCode = self::where('transcode', 'like', "INV/{$datePrefix}/%")
+            ->orderBy('transcode', 'desc')
+            ->value('transcode');
+
+        if ($lastCode) {
+            $lastNumber = (int) substr($lastCode, strrpos($lastCode, '/') + 1);
+            $newNumber = str_pad($lastNumber + 1, 3, '0', STR_PAD_LEFT);
+        } else {
+            $newNumber = '001';
+        }
+
+        return "INV/{$datePrefix}/{$newNumber}";
+    }
+    
 }

@@ -13,6 +13,12 @@ class AuthController extends Controller
             return response(['message' => __('auth.failed')], 422);
         }
 
+        $user = $req->user();
+
+        if (!$user->isactive) {
+            return response(['message' => 'User is not active.'], 403);
+        }
+
         $token = $req->user()->createToken('client-app');
         return ['token' => $token->plainTextToken];
     }

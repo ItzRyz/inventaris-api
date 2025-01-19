@@ -21,7 +21,7 @@ class InventoryDetailController extends Controller
      */
     public function show($id)
     {
-        $invdt = InventoryDetail::with(['inventory', 'product', 'status', 'pj'])->findOrFail($id);
+        $invdt = InventoryDetail::with(['inventory', 'product'])->findOrFail($id);
         return response()->json($invdt, 200);
     }
 

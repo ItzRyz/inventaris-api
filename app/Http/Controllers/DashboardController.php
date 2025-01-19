@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Validator;
 class DashboardController extends Controller
 {
     function pieData(Request $req) {
-        $data = InventoryDetail::select("m_status.nama as status", DB::raw("COUNT(*) as total"))
-        ->join("m_status", "m_status.id", "=", DB::raw("CAST(t_inv_dt.statusid AS BIGINT)"))
-        ->groupBy("m_status.id")
-        ->get();
+        $data = InventoryDetail::select("m_status.nama as status", DB::raw("SUM(CAST(qty AS INT)) as total"))
+            ->join("m_status", "m_status.id", "=", DB::raw("CAST(t_inv_dt.statusid AS BIGINT)"))
+            ->groupBy("m_status.id", "m_status.nama")
+            ->get();
 
         $chartData = $data->map(function ($item) {
             return [
@@ -28,11 +28,11 @@ class DashboardController extends Controller
 
     public function countPenempatan(Request $req) {
         $inventories = DB::table('t_inv_dt')
-            ->selectRaw('COUNT(*) AS total_count')
-            ->selectRaw('COUNT(*) FILTER (WHERE CAST(pjid AS int) = 0) AS belum_count')
-            ->selectRaw('COUNT(*) FILTER (WHERE pjid IS NOT NULL) AS sudah_count')
+            ->selectRaw('SUM(CAST(qty AS INT)) AS total_count')
+            ->selectRaw('SUM(CAST(qty AS INT)) FILTER (WHERE CAST(pjid AS INT) = 0) AS belum_count')
+            ->selectRaw('SUM(CAST(qty AS INT)) FILTER (WHERE CAST(pjid AS INT) != 0) AS sudah_count')
             ->first();
-        
+
         return response()->json($inventories, 200);
     }
 }

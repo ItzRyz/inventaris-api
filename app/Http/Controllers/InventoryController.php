@@ -33,7 +33,7 @@ class InventoryController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'transcode' => 'required|string|max:255',
+            // 'transcode' => 'required|string|max:255',
             'transdate' => 'required|date',
             'remark' => 'required|string|max:255',
             'categoryid' => 'required|exists:m_category,id',
@@ -48,7 +48,11 @@ class InventoryController extends Controller
             ], 422);
         }
 
-        $inventory = Inventory::create($request->all());
+        $transdate = date('Y/m/d', strtotime($request->transdate));
+        [$year, $month, $day] = explode('/', $transdate);
+        $transcode = Inventory::getLastCode($year, $month, $day);
+
+        $inventory = Inventory::create(array_merge($request->all(), ['transcode' => $transcode]));
         return response()->json($inventory, 201);
     }
 

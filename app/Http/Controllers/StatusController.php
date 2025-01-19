@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InventoryDetail;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -75,6 +76,12 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
+        if (InventoryDetail::where('statusid', $id)->exists()) {
+            return response()->json([
+                'message' => 'Status cannot be deleted as it is still associated with other data.'
+            ], 400);
+        }
+
         $id = Status::findOrFail($id);
         $id->delete();
         return response()->json([], 204);

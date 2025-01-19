@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InventoryDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -78,6 +79,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+        if (InventoryDetail::where('productid', $id)->exists()) {
+            return response()->json([
+                'message' => 'Product cannot be deleted as it is still associated with other data.'
+            ], 400);
+        }
+
         $product = Product::findOrFail($id);
         $product->delete();
         return response()->json([], 204);

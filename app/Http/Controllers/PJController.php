@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InventoryDetail;
 use App\Models\PJ;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -81,6 +82,12 @@ class PJController extends Controller
      */
     public function destroy($id)
     {
+        if (InventoryDetail::where('pjid', $id)->exists()) {
+            return response()->json([
+                'message' => 'PJ cannot be deleted as it is still associated with other data.'
+            ], 400);
+        }
+
         $pj = PJ::findOrFail($id);
         $pj->delete();
         return response()->json([], 204);
